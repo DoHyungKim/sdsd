@@ -8,15 +8,15 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("application/json");
+	String boardid = request.getParameter("boardid");
 	String userid = session.getAttribute("userid").toString();
-	
+	int num = Integer.parseInt(boardid);
 	
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
-	JSONObject json;
-	JSONArray ja = new JSONArray();
+	JSONObject json = new JSONObject();
 	
 	try{
 		conn = ConnUtil.getConnection();
@@ -26,13 +26,11 @@
 		
 		rs = ps.executeQuery();
 		
-		
-		
 		while(rs.next()){
-			json = new JSONObject();
-			json.put("boardtitle", rs.getString("board_title"));
-			json.put("boardid", rs.getString("board_id"));
-			ja.add(json);
+			if(rs.getRow() == num+1){
+				session.setAttribute("boardtitle", rs.getString("board_title"));
+				session.setAttribute("boardid", rs.getString("board_id"));
+			}
 		}
 		
 	}catch(Exception e){
@@ -40,5 +38,5 @@
 	}finally{
 		ConnUtil.close(rs, ps, conn);
 	}
-	out.write(ja.toString());
+	out.write(json.toString());
 %>

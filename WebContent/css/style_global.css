@@ -209,7 +209,10 @@ div.loadingbookinfo h4{
 }
 
 footer{
-	height: 110px;
+   height: 110px;
+   position: absolute;
+   bottom: 0;
+   width: 100%;
 }
 
 div.undermargin{
@@ -222,4 +225,9 @@ div.footer{
 	border-width: 1px 0px 0px;
 	height: auto;
 	background: #f8f8f8 !important;
+}
+
+#history{
+	background-color: #E7E7E7;
+	margin-left:auto;
 }
